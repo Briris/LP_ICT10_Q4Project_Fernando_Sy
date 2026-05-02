@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP_ICT10_Q4Project_Fernando_Sy</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    body {
+        padding: 20px;
+        background-color: rgb(99, 119, 156);
+    }
+    #classmateForm {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        background-color: white;
+        border: 3px solid;
+        border-radius: 5px;
+        border-color: white;
+        background-color: rgb(164, 196, 225);
+    }
+    h3 {
+        text-align: center;  
+        font-weight: bold;     
+        color: white;
+    }
+    h4 {
+        font-weight: bold;
+    }
+    p {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+    }
+    #classmateListContainer {
+        max-width: 400px;
+        padding: 20px;
+        background-color: white;
+        border: 3px solid;
+        border-radius: 5px;
+        border-color: white;
+        background-color: rgb(164, 196, 225);
+    }
+</style>
+
+</head>
+<body>
+           <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container" id="nav">
+            <a class="navbar-brand" href="index.html"><b>10 - Sapphire</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Class List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="attendance.html">Attendance Checker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="photos.html">Class Photos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container">
+    <h3>Grade 10 Classmates System</h3>
+    <p>Add and view your classmates easily</p>
+<hr>
+
+<form id="classmateForm"> 
+    <input type="text" id="username" class="form-control" name="username" placeholder="Enter Name">
+    <br>
+    <input type="text" id="section" class="form-control" name="section" placeholder="Enter Section">
+    <br>
+    <input type="text" id="subject" class="form-control" name="subject" placeholder="Enter Favorite Subject">
+    <br>
+    
+    <button type="button" class="btn btn-dark" onclick="AddClassmate()">Add Classmate</button> 
+    <br> 
+    <br> 
+    <button type="button" onclick="ShowClassmates()" class="btn btn-dark">Show Classmates</button> 
+</form> 
+<div id="signed" style="margin-top:15px; color:white; text-align: center;"></div>
+</div> 
+
+<div class="container mt-4" id="classmateListContainer"> 
+    <h4>Classmates List:</h4>
+    <pre id="classmate-list" style="white-space: pre-wrap;"></pre>
+</div>
+
+    <script>
+const takenuser = {
+    "Ancheta, Arthur Eugene Maximus Adarna": ["Sapphire", "Math"],
+    "Asuncion, Miguelito Alonso Brigoli": ["Sapphire", "Homeroom"],
+    "Battung, John Lorenzo Quisumbing": ["Sapphire", "Math"],
+    "Buenvenida, Victor Emmanuel Bernardino": ["Sapphire", "PE"],
+    "Casul, McKayla Analisse Gabor": ["Sapphire", "Lunch Time"],
+    "Catapang, Athena La Verne Sarabia": ["Sapphire", "SS"],
+    "Chua, Cade Rylie Rivera": ["Sapphire", "Science"],
+    "Eusebio, Zyan Riley Tancinco": ["Sapphire", "English"],
+    "Evangelio, Princess Radhika Zayn Divino": ["Sapphire", "Marching Band"],
+    "Fado, Marianna Reinne Fabie": ["Sapphire", "Marching Band"],
+    "Fermocil, Kleiser Ferida": ["Sapphire", "PE"],
+    "Fernando, Curt Joshua Nicolas": ["Sapphire", "PE"],
+    "Francia, Ethan Raphael Juanga": ["Sapphire", "Math"],
+    "Jimenez, Sophia San Buenaventura": ["Sapphire", "Science"],
+    "Mabilog, Javier Antonio Villadolid": ["Sapphire", "Math"],
+    "Mactal, Al Chrian Abueme": ["Sapphire", "LeBron James"],
+    "Magday, Constance Soleil Gustilo": ["Sapphire", "SS"],
+    "Moya, Yanna Clarisse Obial": ["Sapphire", "PE"],
+    "Mutia, Francheska Zoe Abesamis": ["Sapphire", "VE"],
+    "Nazareno, Luis Gabriel IV Villarico": ["Sapphire", "ICT"],
+    "Romero, Jose Inigo Abalajon": ["Sapphire", "SS"],
+    "Santos, Kyler": ["Sapphire", "Math"],
+    "Sarao, Jaedin Hailey Balberan": ["Sapphire", "SS"],
+    "Sy, Briana Gabrielle Calaranan": ["Sapphire", "Math"],
+    "Sy, Charlotte Anne Estrada": ["Sapphire", "PE"],
+    "Udono, Jared Daniel Maulas": ["Sapphire", "English"],
+    "Vida, Mary Kristine Claire Parra": ["Sapphire", "Math"]
+};
+
+function ShowClassmates() {
+    let classmates = "";
+    for (const [username, [section, fav_subject]] of Object.entries(takenuser)) {
+        classmates += `${username}: \nSection: ${section} \nFavorite Subject: ${fav_subject}\n\n`;
+    }
+    document.getElementById("classmate-list").innerText = classmates;
+}
+
+function AddClassmate() {
+    const username = document.getElementById("username").value.trim();
+    const section = document.getElementById("section").value.trim();
+    const fav_subject = document.getElementById("subject").value.trim();
+
+    if (!username || !section || !fav_subject) {
+        document.getElementById("signed").innerText = "Please fill in all fields.";
+        return;
+    }
+
+    if (takenuser[username]) {
+        document.getElementById("signed").innerText = "This classmate already exists.";
+        return;
+    }
+
+    takenuser[username] = [section, fav_subject];
+    document.getElementById("signed").innerText = `${username} added as a classmate!`;
+    document.getElementById("username").value = "";
+    document.getElementById("section").value = "";
+    document.getElementById("subject").value = "";
+}
+    </script>
+</body>
+</html>
